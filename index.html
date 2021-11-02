@@ -18,14 +18,14 @@
                     <!-- Calculator Text Field -->
                     <div class="bdt-ep-field-wrap uk-margin">
                         <label class="uk-form-label" for="form-stacked-text">Text Field</label>
-                        <input class="uk-input bdt-ep-field" type="text" placeholder="Text" value="20">
+                        <input class="uk-input bdt-ep-field" type="text" placeholder="Text">
                     </div>
 
                     <!-- Calculator Checkbox -->
                     <div class="bdt-ep-field-wrap bdt-ep-check-box uk-margin uk-grid-small uk-child-width-auto uk-grid">
                         <label class="uk-form-label" for="form-stacked-checkbox">Checkbox</label>
-                        <label><input class="uk-checkbox" type="checkbox" name="checked"><span>Feature A</span></label>
-                        <label><input class="uk-checkbox" type="checkbox" name="checked"><span>Feature B</span></label>
+                        <label><input class="uk-checkbox" type="checkbox" name="checked" value="20" checked><span>Feature A</span></label>
+                        <label><input class="uk-checkbox" type="checkbox" name="checked" checked><span>Feature B</span></label>
                     </div>
 
                     <!-- Calculator Number Field -->
@@ -70,19 +70,18 @@
                     <!-- Calculator Radio -->
                     <div class="bdt-ep-field-wrap bdt-ep-check-box uk-margin uk-grid-small uk-child-width-auto uk-grid">
                         <label class="uk-form-label" for="form-stacked-radio">Radio</label>
-                        <label><input class="uk-radio" type="radio" name="radio2" checked><span>Feature A</span></label>
-                        <label><input class="uk-radio" type="radio" name="radio2"><span>Feature B</span></label>
+                        <label><input class="uk-radio" type="radio" name="radio2" value="36" checked><span>Feature A</span></label>
+                        <label><input class="uk-radio" type="radio" name="radio2" value=""><span>Feature B</span></label>
                     </div>
                     
                     <!-- Calculator Formula -->
                     <div class="bdt-ep-field-wrap uk-margin">
                         <label class="uk-form-label" for="form-stacked-textarea">Formula</label>
-                        <textarea class="uk-textarea" rows="5" placeholder="SUM(-f1, f2, f3, f4, 'Hello World!'), SUM(f1:f4)"></textarea>
+                        <textarea disabled class="uk-textarea" rows="5" placeholder="SUM(-f1, f2, f3, f4, 'Hello World!'), SUM(f1:f4)"></textarea>
                     </div>
-
                     <!-- Calculator Result Count -->
                     <div class="bdt-result-count uk-margin">
-                        <p>Result - 755</p>
+                        <p>Result : <span></span></p>
                     </div>
                 </fieldset>
             </form>
@@ -91,7 +90,9 @@
 
     <!-- UIkit JS -->
     <script src="assets/js/uikit.min.js"></script>
+    <!-- jquery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- site self script -->
     <script src="assets/js/site.js"></script>
 </body>
 </html>
