@@ -24,7 +24,6 @@ function calculate_result(){
             });
             formulaString += Number.isInteger(itemValue) && itemValue < 0 ? "-f" + variableIndex + ', ' : "f" + variableIndex + ', ';
             variableIndex++;
-          //}
         } else {
           data.push({
             type: $(item).prop("type"),
