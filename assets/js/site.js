@@ -9,7 +9,6 @@ function calculate_result(){
             data.push({
               type: $(item).prop("type"),
               index: index,
-              //value: itemValue,
               value: $(item).val(),
               variable: "f" + variableIndex
             });
@@ -23,7 +22,6 @@ function calculate_result(){
               value: $(item).val(),
               variable: "f" + variableIndex
             });
-            //formulaString += "f" + variableIndex + ', ';
             formulaString += Number.isInteger(itemValue) && itemValue < 0 ? "-f" + variableIndex + ', ' : "f" + variableIndex + ', ';
             variableIndex++;
           //}
@@ -34,7 +32,6 @@ function calculate_result(){
             value: $(item).val(),
             variable: "f" + index + 1
           });
-          //formulaString += "f" + variableIndex + ', ';
           formulaString += Number.isInteger(itemValue) && itemValue < 0 ? "-f" + variableIndex + ', ' : "f" + variableIndex + ', ';
           variableIndex++;
         }
