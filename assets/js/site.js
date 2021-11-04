@@ -4,13 +4,14 @@ function calculate_result(){
       function (index, item) {
         variableIndex = parseInt(index) + 1;
         let itemValue = parseInt($(item).val());
-        if ($(item).prop("type") === "checkbox" || $(item).prop("type") === "radio") {
+        if ($(item).prop("type") === "checkbox" || $(item).prop("type") === "radio") { // first check if this item is checkbox or radio
           if ($(item).is(":checked") === true) {
             data.push({
               type: $(item).prop("type"),
               index: index,
               value: $(item).val(),
-              variable: "f" + variableIndex
+              variable: "f" + variableIndex,
+              real_value: getValueIfInteger($(item).val())
             });
             formulaString += Number.isInteger(itemValue) && itemValue < 0 ? "-f" + variableIndex + ', ' : "f" + variableIndex + ', ';
             variableIndex++;
@@ -20,7 +21,8 @@ function calculate_result(){
               type: $(item).prop("type"),
               index: index,
               value: $(item).val(),
-              variable: "f" + variableIndex
+              variable: "f" + variableIndex,
+              real_value: getValueIfInteger($(item).val())
             });
             formulaString += Number.isInteger(itemValue) && itemValue < 0 ? "-f" + variableIndex + ', ' : "f" + variableIndex + ', ';
             variableIndex++;
@@ -29,7 +31,8 @@ function calculate_result(){
             type: $(item).prop("type"),
             index: index,
             value: $(item).val(),
-            variable: "f" + index + 1
+            variable: "f" + variableIndex,
+            real_value: getValueIfInteger($(item).val())
           });
           formulaString += Number.isInteger(itemValue) && itemValue < 0 ? "-f" + variableIndex + ', ' : "f" + variableIndex + ', ';
           variableIndex++;
@@ -47,9 +50,20 @@ function calculate_result(){
             result += getValue;
           }
       }
+      console.log(data);
       $(".bdt-result-count p span").text(result);
       $(".uk-textarea").text("SUM(" + formulaString.replace(/,\s*$/, "") + ")"); // removing comma at end
     }
+}
+/**
+ * casting value
+ */
+function getValueIfInteger(value){
+  if(value === undefined) return null;
+  // first convert this value to integer 
+  let valueConvert = parseInt(value);
+  // and then check if this item is integer or not. if integer then return that value otherwise return false
+  return Number.isInteger(valueConvert) === true ? valueConvert : value;
 }
 /**
  * trigger on ready default
