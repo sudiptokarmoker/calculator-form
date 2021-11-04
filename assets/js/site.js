@@ -42,6 +42,7 @@ function calculate_result(){
     /**
      * its means that sum event have to trigger here
      */
+    /*
     if(data.length > 0){
       for(let i = 0; i < data.length; i++)
       {
@@ -54,6 +55,17 @@ function calculate_result(){
       $(".bdt-result-count p span").text(result);
       $(".uk-textarea").text("SUM(" + formulaString.replace(/,\s*$/, "") + ")"); // removing comma at end
     }
+    */
+   //SUM(-f1, f2, f3, f4, 'Hello World!')
+    let result_formula = formulajs.SUM([1, 2 , 3]);
+    $(".bdt-result-count p span").text(result_formula);
+  //  if(data.length > 0){
+  //   let variableArray = [];
+  //   for(let i = 0; i < data.length; i++)
+  //   {
+  //       variableArray.push()
+  //   }
+  //  }
 }
 /**
  * casting value
