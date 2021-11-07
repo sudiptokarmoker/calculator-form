@@ -117,7 +117,8 @@ $(function(){
     console.log(data['f1']);
     console.log(data['f2']);
     */
-    let regexp = new RegExp('[f][0-9]*','g');
+    //let regexp = new RegExp('[f][0-9]*','g');
+    let regexp = new RegExp('[f][0-9]\d', 'g')
     let str = 'SUM(f1, f2, -f64f, flkjlj)';
     let newStr = str;
     let match;
