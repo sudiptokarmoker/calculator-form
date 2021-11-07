@@ -66,6 +66,30 @@ function calculate_result(){
   //       variableArray.push()
   //   }
   //  }
+
+/*
+  let regexp = new RegExp('f[d]*','g');
+  let str = 'SUM(f1, f2, f6)';
+  let match;
+
+  while ((match = regexp.exec(str)) !== null) {
+    console.log(`Found ${match[0]} start=${match.index} end=${regexp.lastIndex}.`);
+    // expected output: "Found football start=6 end=14."
+    // expected output: "Found foosball start=16 end=24."
+  }
+*/
+/*
+let regexp = new RegExp('[f][0-9]','g');
+let str = 'SUM(f1, f2, f64)';
+let match;
+
+while ((match = regexp.exec(str)) !== null) {
+  console.log(`Found ${match[0]} start=${match.index} end=${regexp.lastIndex}.`);
+}
+VM702:6 Found f1 start=4 end=6.
+VM702:6 Found f2 start=8 end=10.
+VM702:6 Found f6 start=12 end=14.
+*/
 }
 /**
  * casting value
@@ -85,4 +109,32 @@ $(function(){
     $(".bdt-ep-calculator-form").change(function(){
         calculate_result();
     });
+    /*
+    let data = {
+      f1: 20,
+      f2: 30
+    };
+    console.log(data['f1']);
+    console.log(data['f2']);
+    */
+    let regexp = new RegExp('[f][0-9]*','g');
+    let str = 'SUM(f1, f2, -f64f, flkjlj)';
+    let newStr = str;
+    let match;
+    let data = {
+      f1: 20,
+      f2: 30,
+      f64: 658554
+    };
+    //const fruits = ["apple", "orange", "cherry"];
+    while ((match = regexp.exec(str)) !== null) {
+        //console.log(match[0]);
+        if(data[match[0]]){
+          let regex = match[0];
+          str = str.replace(match[0], data[match[0]]);
+          console.log(str);
+        }
+    }
+    //console.log(str);
+    // final string
 });
