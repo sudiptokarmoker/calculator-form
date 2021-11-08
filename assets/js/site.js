@@ -124,9 +124,13 @@ $('.bdt-ep-calculator-form').submit(function(e){
   let newArray = {};
   for(let i = 0; i < cloneArray.length; i++){
     if(Number.isInteger(cloneArray[i].real_value)){
-      
+      variableText = cloneArray[i].variable;
+      newArray[i] = {
+        variableText: cloneArray[i].real_value
+      }
     }
   }
+  console.log(newArray);
 
 
   //let regexp = new RegExp('[f][0-9]*','g');
