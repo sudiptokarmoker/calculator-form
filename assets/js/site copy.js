@@ -57,11 +57,8 @@ function calculate_result(){
     }
     */
    //SUM(-f1, f2, f3, f4, 'Hello World!')
-    //let result_formula = formulajs.SUM([1, 2 , 3]);
-
-    //let result_formula = formulajs.SUM([1, 2 , 3]);
-    //$(".bdt-result-count p span").text(result_formula);
-
+    let result_formula = formulajs.SUM([1, 2 , 3]);
+    $(".bdt-result-count p span").text(result_formula);
   //  if(data.length > 0){
   //   let variableArray = [];
   //   for(let i = 0; i < data.length; i++)
@@ -93,7 +90,6 @@ VM702:6 Found f1 start=4 end=6.
 VM702:6 Found f2 start=8 end=10.
 VM702:6 Found f6 start=12 end=14.
 */
-  return data;
 }
 /**
  * casting value
@@ -108,57 +104,40 @@ function getValueIfInteger(value){
 /**
  * trigger on ready default
  */
-let getDataArray;
 $(function(){
-    getDataArray = calculate_result();
-    console.log(getDataArray);
+    calculate_result();
     $(".bdt-ep-calculator-form").change(function(){
-      getDataArray = calculate_result();
+        calculate_result();
     });
-    
+    /*
+    let data = {
+      f1: 20,
+      f2: 30
+    };
+    console.log(data['f1']);
+    console.log(data['f2']);
+    */
+    //let regexp = new RegExp('[f][0-9]*','g');
+    let regexp = new RegExp('^f', 'g');
+    //let regexp = new RegExp('[f]/^[0-9]*$/', 'g')
+    //var regexp = new RegExp('[f]/\d+$/', 'g');
+    let str = 'SUM(f1, f2, -f64d, flkjlj)';
+    let newStr = str;
+    let match;
+    let data = {
+      f1: 20,
+      f2: 30,
+      f64: 658554
+    };
+    //const fruits = ["apple", "orange", "cherry"];
+    while ((match = regexp.exec(str)) !== null) {
+        console.log(match[0]);
+        if(data[match[0]]){
+          let regex = match[0];
+          str = str.replace(match[0], data[match[0]]);
+          console.log(str);
+        }
+    }
+    //console.log(str);
+    // final string
 });
-
-$('.bdt-ep-calculator-form').submit(function(e){
-  e.preventDefault();
-  const cloneArray = getDataArray;
-  let newArray = {};
-  for(let i = 0; i < cloneArray.length; i++){
-    if(Number.isInteger(cloneArray[i].real_value)){
-      
-    }
-  }
-
-
-  //let regexp = new RegExp('[f][0-9]*','g');
-  let regexp = new RegExp('[f][1-9][0-9]{0,2}|1000$','g');
-
-  let str = $('.uk-textarea').text();
-  let match;
-  let data = {
-    f1: 20,
-    f2: 30,
-    f999: 658554
-  };
-  /*
-  while ((match = regexp.exec(str)) !== null) {
-      if(data[match[0]]){
-        let regex = match[0];
-        str = str.replace(match[0], data[match[0]]);
-      }
-  }
-  */
-  while ((match = regexp.exec(str)) !== null) {
-    if(data[match[0]]){
-      let regex = match[0];
-      str = str.replace(match[0], data[match[0]]);
-    }
-}
-  let value;
-  try{
-    let formulaString = "LEFT('Sale Price', 4)";
-    value = eval('formulajs.' + formulaString);
-    console.log(value);
-  } catch(error){
-    console.log("error occured");
-  }
-})

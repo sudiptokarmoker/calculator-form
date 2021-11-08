@@ -108,57 +108,54 @@ function getValueIfInteger(value){
 /**
  * trigger on ready default
  */
-let getDataArray;
 $(function(){
-    getDataArray = calculate_result();
+    let getDataArray = calculate_result();
     console.log(getDataArray);
     $(".bdt-ep-calculator-form").change(function(){
       getDataArray = calculate_result();
     });
-    
+    /*
+    let data = {
+      f1: 20,
+      f2: 30
+    };
+    console.log(data['f1']);
+    console.log(data['f2']);
+    */
+    //let regexp = new RegExp('[f][0-9]*','g');
+    let regexp = new RegExp('[f][1-9][0-9]{0,2}|1000$','g');
+    //let regexp = new RegExp('^f', 'g');
+    //let regexp = new RegExp('[f][0-9]|[12]\d|3[0-6]*$','g');
+    //let regexp = new RegExp('[f][1-9]|[1-9][0-9]|[1-9][0-9][0-9]*','g');
+    //var regexp = new RegExp('[f]/\d+$/', 'g');
+
+    //let str = 'SUM(f1, f2, f999, flkjlj)';
+    let str = $('.uk-textarea').text();
+    console.log(str);
+    let newStr = str;
+    let match;
+    let data = {
+      f1: 20,
+      f2: 30,
+      f999: 658554
+    };
+    //const fruits = ["apple", "orange", "cherry"];
+    while ((match = regexp.exec(str)) !== null) {
+        console.log(match[0]);
+        if(data[match[0]]){
+          let regex = match[0];
+          str = str.replace(match[0], data[match[0]]);
+          //console.log(str);
+        }
+    }
+    // console.log(str);
+    // final string
+    let value;
+    try{
+      let formulaString = "LEFT('Sale Price', 4)";
+      value = eval('formulajs.' + formulaString);
+      console.log(value);
+    } catch(error){
+      console.log("error occured");
+    }
 });
-
-$('.bdt-ep-calculator-form').submit(function(e){
-  e.preventDefault();
-  const cloneArray = getDataArray;
-  let newArray = {};
-  for(let i = 0; i < cloneArray.length; i++){
-    if(Number.isInteger(cloneArray[i].real_value)){
-      
-    }
-  }
-
-
-  //let regexp = new RegExp('[f][0-9]*','g');
-  let regexp = new RegExp('[f][1-9][0-9]{0,2}|1000$','g');
-
-  let str = $('.uk-textarea').text();
-  let match;
-  let data = {
-    f1: 20,
-    f2: 30,
-    f999: 658554
-  };
-  /*
-  while ((match = regexp.exec(str)) !== null) {
-      if(data[match[0]]){
-        let regex = match[0];
-        str = str.replace(match[0], data[match[0]]);
-      }
-  }
-  */
-  while ((match = regexp.exec(str)) !== null) {
-    if(data[match[0]]){
-      let regex = match[0];
-      str = str.replace(match[0], data[match[0]]);
-    }
-}
-  let value;
-  try{
-    let formulaString = "LEFT('Sale Price', 4)";
-    value = eval('formulajs.' + formulaString);
-    console.log(value);
-  } catch(error){
-    console.log("error occured");
-  }
-})
