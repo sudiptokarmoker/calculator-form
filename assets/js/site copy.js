@@ -3,8 +3,7 @@ function getVarableDataArray() {
         variableIndex,
         onlyValueArray = [],
         formulaString = "",
-        getIsRealValue,
-        radioNameArrayStack = []; // radioNameArrayStack is for escaping duplicating value of radio button
+        getIsRealValue;
     $.each(
         $(
             ".bdt-ep-field-wrap input[type=text], .bdt-ep-field-wrap input[type=hidden], .bdt-ep-field-wrap input[type=checkbox], .bdt-ep-field-wrap input[type=radio], .bdt-ep-field-wrap input[type=number]"
@@ -12,36 +11,16 @@ function getVarableDataArray() {
         function (index, item) {
             variableIndex = parseInt(index) + 1;
             let itemValue = parseInt($(item).val());
-            if ($(item).prop("type") === "radio") {
-                let currentRadioButtonName = $(item).attr('name');
-                if ($("input[name='"+currentRadioButtonName+"']").is(":checked") === true && radioNameArrayStack.indexOf(currentRadioButtonName) < 0) {
-                    radioNameArrayStack.push(currentRadioButtonName);
-                    getIsRealValue = getValueIfInteger($('input[name="'+currentRadioButtonName+'"]:checked').val());
-                    if (Number.isInteger(getIsRealValue)) {
-                        onlyValueArray.push({
-                            variable: "f" + variableIndex,
-                            value: getIsRealValue,
-                        });
-                    }
-                    data.push({
-                        type: $(item).prop("type"),
-                        index: index,
-                        value: $(item).val(),
-                        variable: "f" + variableIndex,
-                        //real_value: getValueIfInteger($(item).val())
-                        real_value: getIsRealValue,
-                    });
-                    formulaString +=
-                        Number.isInteger(itemValue) && itemValue < 0
-                            ? "-f" + variableIndex + ", "
-                            : "f" + variableIndex + ", ";
-                    variableIndex++;
-                }
-            }
-            else if ($(item).prop("type") === "checkbox") {
+            if (
+                $(item).prop("type") === "checkbox" ||
+                $(item).prop("type") === "radio"
+            ) {
                 // first check if this item is checkbox or radio
+                console.log("radio selected");
                 if ($(item).is(":checked") === true) {
+                    console.log("radio selected started");
                     getIsRealValue = getValueIfInteger($(item).val());
+                    console.log(getIsRealValue);
                     if (Number.isInteger(getIsRealValue)) {
                         onlyValueArray.push({
                             variable: "f" + variableIndex,
@@ -137,6 +116,8 @@ function procesingFormDataWithFormulaJs() {
         str = getFormulaStringFromDataSettings(),
         match,
         value;
+    console.log("get data array : ");
+    console.log(getDataArray);
     let variableArray = getDataArray[1]; // here variableArray is just contain all variable information
     if (variableArray.length > 0) {
         while ((match = regexp.exec(str)) !== null) {

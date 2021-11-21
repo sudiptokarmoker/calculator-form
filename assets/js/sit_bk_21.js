@@ -3,8 +3,7 @@ function getVarableDataArray() {
         variableIndex,
         onlyValueArray = [],
         formulaString = "",
-        getIsRealValue,
-        radioNameArrayStack = []; // radioNameArrayStack is for escaping duplicating value of radio button
+        getIsRealValue;
     $.each(
         $(
             ".bdt-ep-field-wrap input[type=text], .bdt-ep-field-wrap input[type=hidden], .bdt-ep-field-wrap input[type=checkbox], .bdt-ep-field-wrap input[type=radio], .bdt-ep-field-wrap input[type=number]"
@@ -12,33 +11,10 @@ function getVarableDataArray() {
         function (index, item) {
             variableIndex = parseInt(index) + 1;
             let itemValue = parseInt($(item).val());
-            if ($(item).prop("type") === "radio") {
-                let currentRadioButtonName = $(item).attr('name');
-                if ($("input[name='"+currentRadioButtonName+"']").is(":checked") === true && radioNameArrayStack.indexOf(currentRadioButtonName) < 0) {
-                    radioNameArrayStack.push(currentRadioButtonName);
-                    getIsRealValue = getValueIfInteger($('input[name="'+currentRadioButtonName+'"]:checked').val());
-                    if (Number.isInteger(getIsRealValue)) {
-                        onlyValueArray.push({
-                            variable: "f" + variableIndex,
-                            value: getIsRealValue,
-                        });
-                    }
-                    data.push({
-                        type: $(item).prop("type"),
-                        index: index,
-                        value: $(item).val(),
-                        variable: "f" + variableIndex,
-                        //real_value: getValueIfInteger($(item).val())
-                        real_value: getIsRealValue,
-                    });
-                    formulaString +=
-                        Number.isInteger(itemValue) && itemValue < 0
-                            ? "-f" + variableIndex + ", "
-                            : "f" + variableIndex + ", ";
-                    variableIndex++;
-                }
-            }
-            else if ($(item).prop("type") === "checkbox") {
+            if (
+                $(item).prop("type") === "checkbox" ||
+                $(item).prop("type") === "radio"
+            ) {
                 // first check if this item is checkbox or radio
                 if ($(item).is(":checked") === true) {
                     getIsRealValue = getValueIfInteger($(item).val());
@@ -137,10 +113,16 @@ function procesingFormDataWithFormulaJs() {
         str = getFormulaStringFromDataSettings(),
         match,
         value;
+    //console.log(str);
+    //console.log(getDataArray[1]);
     let variableArray = getDataArray[1]; // here variableArray is just contain all variable information
+    //console.log("variableArray : ");
+    //console.log(variableArray);
     if (variableArray.length > 0) {
         while ((match = regexp.exec(str)) !== null) {
             let isElementExistsCounter = 0;
+            //console.log("match print : ");
+            //console.log(match[0]);
             for (let i = 0; i < variableArray.length; i++) {
                 if (variableArray[i]["variable"] === match[0]) {
                     str = str.replace(match[0], variableArray[i]["value"]);
@@ -152,9 +134,11 @@ function procesingFormDataWithFormulaJs() {
             }
         }
         try {
+            //console.log("final string : " + str);
             value = eval("formulajs." + str);
-            console.log(value);
+            //console.log(value);
             $(".bdt-result-count p span").text(value);
+            //alert(value);
         } catch (error) {
             alert("error occured, invalid data format. please fix the data format and send again. thanks!");
         }
@@ -169,3 +153,8 @@ $(".bdt-ep-calculator-form").submit(function (e) {
 $(".bdt-ep-calculator-form").change(function () {
     procesingFormDataWithFormulaJs();
 });
+
+// $(function(){
+//     var resultOFDemo = formulajs.SUM(null + 20);
+//     console.log(resultOFDemo);
+// });
